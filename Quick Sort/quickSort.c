@@ -2,36 +2,33 @@
 #include <stdlib.h>
 #include <time.h>
 
-/* ---------- Swap two elements ---------- */
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
 /* ---------- Partition function ---------- */
 int partition(int tab[], int d, int f) {
     int pivot = tab[d];   // pivot element
-    int i = f;
-    int j = d;
-    int x;
+    int i = d - 1;        // index moving from left to right
+    int j = f + 1;        // index moving from right to left
+    int temp;
 
-    while (j <= i) {
-        while (j <= f && tab[j] <= pivot)
-            j++;
+    while (1) {
+        /* Move i until an element >= pivot is found */
+        do {
+            i++;
+        } while (tab[i] < pivot);
 
-        while (i >= d && tab[i] > pivot)
-            i--;
+        /* Move j until an element <= pivot is found */
+        do {
+            j--;
+        } while (tab[j] > pivot);
 
-        if (j < i) {
-            x = tab[j];
-            tab[j] = tab[i];
-            tab[i] = x;
-            j++;
-            i--;
-        }
+        /* If indices cross, partitioning is finished */
+        if (i >= j)
+            return j;
+
+        /* Swap elements tab[i] and tab[j] */
+        temp = tab[i];
+        tab[i] = tab[j];
+        tab[j] = temp;
     }
-    return i;
 }
 
 /* ---------- Quick Sort ---------- */
@@ -44,24 +41,28 @@ void quickSort(int tab[], int p, int r) {
     }
 }
 
+/* ---------- Fill array with random values ---------- */
 void fillRandom(int A[], int n) {
     for (int i = 0; i < n; i++)
         A[i] = rand();
 }
 
-
+/* ---------- Main ---------- */
 int main() {
     int sizes[] = {1000, 2000, 4000, 8000, 16000};
     int nbSizes = 5;
 
+    /* Initialize random number generator */
     srand(time(NULL));
 
+    /* Loop over different array sizes */
     for (int s = 0; s < nbSizes; s++) {
         int n = sizes[s];
         int *A = malloc(n * sizeof(int));
 
         fillRandom(A, n);
 
+        /* Measure execution time */
         clock_t start = clock();
         quickSort(A, 0, n - 1);
         clock_t end = clock();
