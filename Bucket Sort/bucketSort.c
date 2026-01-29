@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-/* ---------- Linked list structure ---------- */
+
 typedef struct Node {
     float value;
     struct Node *next;
 } Node;
 
-/* ---------- Insert into linked list (sorted insertion) ---------- */
+
 void insertionSortList(Node **head, float value) {
     Node *newNode = malloc(sizeof(Node));
     newNode->value = value;
@@ -28,7 +28,7 @@ void insertionSortList(Node **head, float value) {
     current->next = newNode;
 }
 
-/* ---------- Bucket Sort ---------- */
+
 void bucketSort(float A[], int n) {
     Node **B = malloc(n * sizeof(Node *));
 
