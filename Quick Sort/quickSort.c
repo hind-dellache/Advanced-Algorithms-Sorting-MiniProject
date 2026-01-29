@@ -10,17 +10,12 @@ int partition(int tab[], int d, int f) {
     int temp;
 
     while (1) {
-        /* Move i until an element >= pivot is found */
         do {
             i++;
         } while (tab[i] < pivot);
-
-        /* Move j until an element <= pivot is found */
         do {
             j--;
         } while (tab[j] > pivot);
-
-        /* If indices cross, partitioning is finished */
         if (i >= j)
             return j;
 
