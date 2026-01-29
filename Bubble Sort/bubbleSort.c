@@ -6,21 +6,19 @@
 #define NB_TESTS 5
 
 void bubbleSort(int A[], int n) {
-    bool change = true;
     int temp;
 
-    while (change) {
-        change = false;
+    for (int pass = 0; pass < n - 1; pass++) {
         for (int i = 0; i < n - 1; i++) {
             if (A[i] > A[i + 1]) {
                 temp = A[i];
                 A[i] = A[i + 1];
                 A[i + 1] = temp;
-                change = true;
             }
         }
     }
 }
+
 
 void fillRandom(int A[], int n) {
     for (int i = 0; i < n; i++)
